@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 from flask_pymongo import PyMongo
 
 #Create an instance of Flask
@@ -17,6 +17,13 @@ def home():
 @app.route("/add")
 def add():
     if request.method == "POST":
+        section = request.form['section']
+        reagent = request.form['reagent']
+        lot = request.form['lot']
+        expiration = request.form['expiration']
+        receive = request.form['receive']
+        quantity = request.form['quantity']
+
         
     return render_template('app.html')
 
