@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block body%}
+    <h1>Add Reagent</h1>
+
+
+
+    <form action="/add" method="POST">
+        <label for="section">Section:</label>
+        <input type="text" id="section" name="section">
+
+        <label for="reagent">Reagent Name:</label>
+        <input type="text" id="reagent" name="reagent">
+
+        <label for="lotNumber">Lot Number:</label>
+        <input type="text" id="lotNumber" name="lot">
+
+        <label for="expiration">Expiration Date:</label>
+        <input type="date" id="expiration" name="expiration">
+
+        <label for="receive">Received Date:</label>
+        <input type="date" id="receive" name="receive">
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min='1'>
+
+        <input type="submit" value="submit">
+    </form>
+
+{% endblock%}
+
+
+
+
