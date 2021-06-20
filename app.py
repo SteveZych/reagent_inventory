@@ -8,13 +8,12 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/reagent_inventory"
 mongo = PyMongo(app)
 
-
 #Route to render index.html
 @app.route("/")
 def home():
     return render_template('index.html')
 
-@app.route("/add")
+@app.route("/add", methods=['POST'])
 def add():
     if request.method == "POST":
         section = request.form['section']
@@ -24,8 +23,25 @@ def add():
         receive = request.form['receive']
         quantity = request.form['quantity']
 
-        
-    return render_template('app.html')
+        add = {
+            'section': section,
+            'reagent': reagent,
+            'lot': lot,
+            'expiration': expiration,
+            'received': receive,
+            'quantity': quantity
+        }
 
+        try:
+            mongo.db.reagents.insert_one(add, upsert=True)
+            return redirect('/index', code=302)
+        except:
+            return "There Was a problem adding."
+    
+    else:
+        return render_template("index0.html")
 
+    
+if __name__ == "__main__":
+    app.run(debug=True)
 
