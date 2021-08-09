@@ -39,6 +39,9 @@ def add():
 
     return render_template('add.html')
 
+@app.route('/remove', methods = ['POST', 'GET'])
+def remove():
+    
 @app.route('/cultures')
 def cultures():
     con = sql.connect('reagents.sqlite')
