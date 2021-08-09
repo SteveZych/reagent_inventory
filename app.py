@@ -24,9 +24,11 @@ def add():
                 cur.execute("INSERT INTO brain_weights (section, reagent_name, lot_number, expiration_date, received_date, quantity) VALUES (?,?,?,?,?,?)",(section, reagent, lot, expiration, receive, quantity))
             
             con.commit()
+            print("Inventory added to sqlite database.")
         
         except:
             con.rollback()
+            print("Something went wrong! Inventory was not added to sqlite database.")
 
         finally:
             return redirect("/add")
