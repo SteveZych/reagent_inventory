@@ -34,6 +34,14 @@ def add():
 
     return render_template('add.html')
 
+@app.route('/cultures')
+def cultures():
+    con = sql.connect('reagents.sqlite')
+    cur = con.cursor()
+    items = cur.execute("SELECT * FROM reagents")
+    item = cur.fetchone()[0]
+    print(items, item)
+
 
 if __name__ == '__main__':
    app.run(debug = True)
