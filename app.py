@@ -12,6 +12,7 @@ def home():
 def add():
     if request.method == 'POST':
         try:
+            # HTML add form 
             section = request.form['section']
             reagent = request.form['reagent']
             lot = request.form['lot']
@@ -19,12 +20,14 @@ def add():
             receive = request.form['receive']
             quantity = request.form['quantity']
 
+            # Connect to sqlite database and commit form data
             with sql.connect("data/reagents.sqlite") as con:
                 cur = con.cursor()
                 cur.execute("INSERT INTO reagents (section, reagent_name, lot_number, expiration_date, received_date, quantity) VALUES (?,?,?,?,?,?)",(section, reagent, lot, expiration, receive, quantity))
-            
+                
             con.commit()
             print("Inventory added to sqlite database.")
+           
         
         except:
             con.rollback()
