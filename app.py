@@ -19,9 +19,9 @@ def add():
             receive = request.form['receive']
             quantity = request.form['quantity']
 
-            with sql.connect("reagents.sqlite") as con:
+            with sql.connect("data/reagents.sqlite") as con:
                 cur = con.cursor()
-                cur.execute("INSERT INTO brain_weights (section, reagent_name, lot_number, expiration_date, received_date, quantity) VALUES (?,?,?,?,?,?)",(section, reagent, lot, expiration, receive, quantity))
+                cur.execute("INSERT INTO reagents (section, reagent_name, lot_number, expiration_date, received_date, quantity) VALUES (?,?,?,?,?,?)",(section, reagent, lot, expiration, receive, quantity))
             
             con.commit()
             print("Inventory added to sqlite database.")
