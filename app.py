@@ -41,6 +41,7 @@ def add():
 
 @app.route('/remove', methods = ['POST', 'GET'])
 def remove():
+    return render_template('remove.html')
     
 @app.route('/cultures')
 def cultures():
