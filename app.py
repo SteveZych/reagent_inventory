@@ -45,11 +45,20 @@ def remove():
     
 @app.route('/cultures')
 def cultures():
-    con = sql.connect('reagents.sqlite')
+    con = sql.connect('data/reagents.sqlite')
     cur = con.cursor()
-    items = cur.execute("SELECT * FROM reagents")
-    item = cur.fetchone()[0]
-    print(items, item)
+    cur.execute("SELECT reagent_name, quantity, action FROM reagents WHERE section = 'cultures'")
+    culture_reagents = cur.fetchall()
+    con.close()
+
+    reagent_and_total = []
+    for reagent in culture_reagents:
+        total = 0
+        if reagent[2] == 'add':
+            total += reagent[1]
+        else:
+            total -= reagent[1]
+        reagent_and_total.append(reagent, total)
 
 
 if __name__ == '__main__':
