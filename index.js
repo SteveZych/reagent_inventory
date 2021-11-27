@@ -58,9 +58,11 @@ app.get("/add", (req, res) => {
 app.post("/add", (req, res) => {
     let sql = `INSERT INTO Reagent (Reagent_Name, Receive_Date, Lot_Number, 
         Expiration_Date, Quantity, QC_Status, Comments) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    let reagent = [req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, req.body.Quantity, req.body.QC_Status, req.body.Comments];
+    let reagent = [req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, req.body.Quantity, 0, req.body.Comments];
     db.run(sql, reagent, err => {
-      // if (err) ...
-      res.redirect("/add");
+        if (err) {
+            console.log("Reagent was not added to database");
+        }
+        res.redirect("/add");
     });
   });
