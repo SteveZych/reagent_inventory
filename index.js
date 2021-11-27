@@ -43,3 +43,24 @@ const sql_create_reagents = `CREATE TABLE IF NOT EXISTS Reagent (
     }else{
     console.log("Successful creation of the 'Reagents' table")};
   });
+
+//GET for home route
+app.get("/", (req, res) =>{
+    res.render("index");
+  });
+
+// GET /add
+app.get("/add", (req, res) => {
+    res.render("add", { model: {} });
+  });
+  
+// POST /add
+app.post("/add", (req, res) => {
+    let sql = `INSERT INTO Reagent (Reagent_Name, Receive_Date, Lot_Number, 
+        Expiration_Date, Quantity, QC_Status, Comments) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    let reagent = [req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, req.body.Quantity, req.body.QC_Status, req.body.Comments];
+    db.run(sql, reagent, err => {
+      // if (err) ...
+      res.redirect("/add");
+    });
+  });
