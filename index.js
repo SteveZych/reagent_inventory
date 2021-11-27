@@ -28,6 +28,8 @@ const db = new sqlite3.Database(db_name, err => {
 //Creating table
 const sql_create_reagents = `CREATE TABLE IF NOT EXISTS Reagent (
     Reagent_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Department_Name VARCHAR(100) NOT NULL,
+    Department_Area VARCHAR(100) NOT NULL,
     Reagent_Name VARCHAR(100) NOT NULL,
     Receive_Date VARCHAR(100) NOT NULL,
     Lot_Number VARCHAR(100) NOT NULL,
