@@ -32,9 +32,9 @@ const sql_create_reagents = `CREATE TABLE IF NOT EXISTS Reagent (
     Department_Area VARCHAR(100) NOT NULL,
     Reagent_Name VARCHAR(100) NOT NULL,
     Receive_Date VARCHAR(100) NOT NULL,
-    Lot_Number VARCHAR(100) NOT NULL,
-    Expiration_Date VARCHAR(100) NOT NULL,
-    Quantity VARCHAR(100) NOT NULL,
+    Lot_Number INTEGER(20) NOT NULL,
+    Expiration_Date DATE NOT NULL,
+    Quantity INTEGER(10) NOT NULL,
     QC_Status BINARY NOT NULL,
     Comments TEXT
   );`;
@@ -58,9 +58,9 @@ app.get("/add", (req, res) => {
   
 // POST /add
 app.post("/add", (req, res) => {
-    let sql = `INSERT INTO Reagent (Reagent_Name, Receive_Date, Lot_Number, 
-        Expiration_Date, Quantity, QC_Status, Comments) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    let reagent = [req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, req.body.Quantity, 0, req.body.Comments];
+    let sql = `INSERT INTO Reagent (Department_Name, Department_Area, Reagent_Name, Receive_Date, Lot_Number, 
+        Expiration_Date, Quantity, QC_Status, Comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    let reagent = [req.body.Department_Name, req.body.Department_Area, req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, req.body.Quantity, 0, req.body.Comments];
     db.run(sql, reagent, err => {
         if (err) {
             console.log("Reagent was not added to database");
