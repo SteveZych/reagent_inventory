@@ -1,0 +1,13 @@
+<!--This view is the /instrument route and will display all reagent associated with that instrument-->
+
+<%- include("_header") -%>
+
+    <% for (const reagent in model){  %>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <a href="/reagent/<%= reagent %>" class=""><h5 class="card-title"><%= reagent %></h5></a>
+                <!--Progress bar-->
+            </div>
+        </div>
+    <% } %>
+<%- include("_footer") -%>

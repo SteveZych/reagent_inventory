@@ -1,1 +1,12 @@
 <!--this file is the /bench route and will display different instrument and link to the instrument endpoint-->
+<%- include("_header") -%>
+
+    <% for (const instrument in model){  %>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <a href="/instrument/<%= instrument%>" class=""><h5 class="card-title"><%= instrument %></h5></a>
+                <!--Progress bar-->
+            </div>
+        </div>
+    <% } %>
+<%- include("_footer") -%>

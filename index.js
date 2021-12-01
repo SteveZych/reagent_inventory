@@ -76,3 +76,27 @@ app.post("/add", (req, res) => {
         res.redirect("/add");
     });
   });
+
+//GET for bench route
+app.get("/bench/:bench", (req, res) =>{
+    let bench = req.params.bench;
+    let sql = "SELECT DISTINCT Instrument FROM Reagents WHERE Department_Bench = ?";
+    db.get(sql, bench, (err, row) => {
+        if (err) {
+            console.log(err);
+        }
+        res.render('index', {model: row});
+    })
+  });
+
+  //GET for bench route
+app.get("/instrument/:instrument", (req, res) =>{
+    let instrument = req.params.instrument;
+    let sql = "SELECT DISTINCT Reagent_Name FROM Reagents WHERE Instrument = ?";
+    db.get(sql, instrument, (err, row) => {
+        if (err) {
+            console.log(err);
+        }
+        res.render('index', {model: row});
+    })
+  });
