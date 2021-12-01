@@ -1,5 +1,19 @@
 <%- include("_header") -%>
 
-<h1>Hello world...</h1>
+<!--This is the home page
 
+in the main body there should be a explaination of what this app can do
+
+maybe some screen shots of how to navigate
+
+a sql query for the drop down to navigate to different departments -->
+    <% for (const bench in model){  %>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title">Bench</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    <% } %>
 <%- include("_footer") -%>

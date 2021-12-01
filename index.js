@@ -29,7 +29,8 @@ const db = new sqlite3.Database(db_name, err => {
 const sql_create_reagents = `CREATE TABLE IF NOT EXISTS Reagent (
     Reagent_ID INTEGER PRIMARY KEY AUTOINCREMENT,
     Department_Name VARCHAR(100) NOT NULL,
-    Department_Area VARCHAR(100) NOT NULL,
+    Department_Bench VARCHAR(100) NOT NULL,
+    Instrument VARCHAR(100) NOT NULL,
     Reagent_Name VARCHAR(100) NOT NULL,
     Receive_Date VARCHAR(100) NOT NULL,
     Lot_Number INTEGER(20) NOT NULL,
@@ -48,7 +49,13 @@ const sql_create_reagents = `CREATE TABLE IF NOT EXISTS Reagent (
 
 //GET for home route
 app.get("/", (req, res) =>{
-    res.render("index");
+    let sql = "SELECT DISTINCT Department_Bench FROM Reagents";
+    db.get(sql, [], (err, row) => {
+        if (err) {
+            console.log(err);
+        }
+        res.render('index', {model: row});
+    })
   });
 
 // GET /add
@@ -58,13 +65,14 @@ app.get("/add", (req, res) => {
   
 // POST /add
 app.post("/add", (req, res) => {
-    let sql = `INSERT INTO Reagent (Department_Name, Department_Area, Reagent_Name, Receive_Date, Lot_Number, 
-        Expiration_Date, Quantity, QC_Status, Comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    let reagent = [req.body.Department_Name, req.body.Department_Area, req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, req.body.Quantity, 0, req.body.Comments];
+    let sql = `INSERT INTO Reagent (Department_Name, Department_Bench, Instrument, Reagent_Name, Receive_Date, Lot_Number, 
+        Expiration_Date, Quantity, QC_Status, Comments) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    let reagent = [req.body.Department_Name, req.body.Department_Bench, req.body.Instrument, req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, req.body.Quantity, 0, req.body.Comments];
     db.run(sql, reagent, err => {
         if (err) {
             console.log("Reagent was not added to database");
         }
+        console.log("Successfully added reagent to 'Reagents' table.")
         res.redirect("/add");
     });
   });
