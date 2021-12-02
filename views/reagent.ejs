@@ -1,0 +1,43 @@
+<!--This view is the /reagent route and will display a log of individual reagents with all information and
+ability to remove quantities-->
+<%- include("_header") -%>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Dept. Name</th>
+        <th scope="col">Bench</th>
+        <th scope="col">Instrument</th>
+        <th scope="col">Reagent</th>
+        <th scope="col">Receive Date</th>
+        <th scope="col">Lot</th>
+        <th scope="col">Expiration Date</th>
+        <th scope="col">Initial Quantity</th>
+        <th scope="col">Current Quantity</th>
+        <th scope="col">QC Status</th>
+        <th scope="col">Received By</th>
+        <th scope="col">Comment</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% for (const r of model){ %>
+      <tr>
+        <td><%= r.Reagent_ID%></td>
+        <td><%= r.Department_Name%></td>
+        <td><%= r.Department_Bench%></td>
+        <td><%= r.Instrument%></td>
+        <td><%= r.Reagent_Name%></td>
+        <td><%= r.Receive_Date%></td>
+        <td><%= r.Lot_Number%></td>
+        <td><%= r.Expiration_Date%></td>
+        <td><%= r.Quantity_Initial%></td>
+        <td><%= r.Quantity_Current%></td>
+        <td><%= r.QC_Status%></td>
+        <td><%= r.Received_By%></td>
+        <td><%= r.Comments%></td>
+      </tr>
+    <% } %>
+    </tbody>
+  </table>
+
+  <%- include("_footer") -%>
