@@ -23,8 +23,6 @@ const db = new sqlite3.Database(db_name, err => {
   console.log("Successful connection to the database 'reagents.db'");
 });
 
-//Table needed for reagents, QC, and log of transactions
-
 //Creating table
 const sql_create_reagents = `CREATE TABLE IF NOT EXISTS Reagent (
     Reagent_ID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -50,8 +48,8 @@ const sql_create_reagents = `CREATE TABLE IF NOT EXISTS Reagent (
 
 //GET for home route
 app.get("/", (req, res) =>{
-    let sql = "SELECT DISTINCT Department_Bench FROM Reagents";
-    db.get(sql, [], (err, row) => {
+    let sql = "SELECT DISTINCT Department_Bench FROM Reagent";
+    db.all(sql, [], (err, row) => {
         if (err) {
             console.log(err);
         }
@@ -71,12 +69,13 @@ app.post("/add", (req, res) => {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     let reagent = [req.body.Department_Name, req.body.Department_Bench, req.body.Instrument, 
         req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, 
-        req.body.Quantity, req.body.Quantity, 0, req.body.Received_By, req.body.Comments];
+        req.body.Quantity, req.body.Quantity, "Not Complete", req.body.Received_By, req.body.Comments];
     db.run(sql, reagent, err => {
         if (err) {
-            console.log("Reagent was not added to database");
-        }
-        console.log("Successfully added reagent to 'Reagents' table.")
+            console.log(err);
+        }else{
+            console.log("Successfully added reagent to 'Reagent' table.");
+        };
         res.redirect("/add");
     });
   });
@@ -84,8 +83,8 @@ app.post("/add", (req, res) => {
 //GET for bench route
 app.get("/bench/:bench", (req, res) =>{
     let bench = req.params.bench;
-    let sql = "SELECT DISTINCT Instrument FROM Reagents WHERE Department_Bench = ?";
-    db.get(sql, bench, (err, row) => {
+    let sql = "SELECT DISTINCT Instrument FROM Reagent WHERE Department_Bench = ?";
+    db.all(sql, bench, (err, row) => {
         if (err) {
             console.log(err);
         }
@@ -96,8 +95,8 @@ app.get("/bench/:bench", (req, res) =>{
   //GET for instrument route
 app.get("/instrument/:instrument", (req, res) =>{
     let instrument = req.params.instrument;
-    let sql = "SELECT DISTINCT Reagent_Name FROM Reagents WHERE Instrument = ?";
-    db.get(sql, instrument, (err, row) => {
+    let sql = "SELECT DISTINCT Reagent_Name FROM Reagent WHERE Instrument = ?";
+    db.all(sql, instrument, (err, row) => {
         if (err) {
             console.log(err);
         }
@@ -108,11 +107,48 @@ app.get("/instrument/:instrument", (req, res) =>{
     //GET for reagent route
 app.get("/reagent/:reagent", (req, res) =>{
     let reagent = req.params.reagent;
-    let sql = "SELECT * FROM Reagents WHERE Reagent_Name = ?";
-    db.get(sql, reagent, (err, row) => {
+    let sql = "SELECT * FROM Reagent WHERE Reagent_Name = ?";
+    db.all(sql, reagent, (err, row) => {
         if (err) {
             console.log(err);
         }
         res.render('reagent', {model: row});
     })
   });
+
+  // route for removing quantity get and post
+
+// GET for editing items
+app.get("/edit/:id", (req, res) => {
+    const id = req.params.id;
+    const sql = "SELECT * FROM Reagent WHERE Reagent_ID = ?";
+    db.get(sql, id, (err, row) => {
+      if (err){
+          console.log(err);
+      }
+      res.render("delete", { model: row });
+    });
+  });
+  
+// POST for editing reagents
+app.post("/edit/:id", (req, res) => {
+    let sql = `UPDATE Reagent SET Department_Name = ?, Department_Bench = ?, Instrument = ?, Reagent_Name = ?, 
+        Receive_Date = ?, Lot_Number = ?, Expiration_Date = ?, Quantity_Initial = ?, Quantity_Current = ?, 
+        QC_Status = ?, Received_By = ?, Comments = ? WHERE Reagent_ID = ?`;
+    let reagent = [req.body.Department_Name, req.body.Department_Bench, req.body.Instrument, 
+        req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, 
+        req.body.Quantity_Initial, req.body.Quantity_Current, req.body.QC_Status, req.body.Received_By, 
+        req.body.Comments, req.params.id];
+    db.run(sql, reagent, err => {
+      if (err){
+          console.log(err);
+      }
+      res.redirect(`/reagent/${req.body.Reagent_Name}`);
+    });
+  });
+
+  // route for editing items get and post
+
+  //Table needed for reagents, QC, and log of transactions
+
+// Shorten table in reagent view by adding bread crumb

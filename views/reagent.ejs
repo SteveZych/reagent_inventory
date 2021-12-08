@@ -17,27 +17,29 @@ ability to remove quantities-->
         <th scope="col">QC Status</th>
         <th scope="col">Received By</th>
         <th scope="col">Comment</th>
+        <th scope="col">Remove</th>
+        <th scope="col">Edit</th>
       </tr>
     </thead>
     <tbody>
-    <% for (const r of model){ %>
-      <tr>
-        <td><%= r.Reagent_ID%></td>
-        <td><%= r.Department_Name%></td>
-        <td><%= r.Department_Bench%></td>
-        <td><%= r.Instrument%></td>
-        <td><%= r.Reagent_Name%></td>
-        <td><%= r.Receive_Date%></td>
-        <td><%= r.Lot_Number%></td>
-        <td><%= r.Expiration_Date%></td>
-        <td><%= r.Quantity_Initial%></td>
-        <td><%= r.Quantity_Current%></td>
-        <td><%= r.QC_Status%></td>
-        <td><%= r.Received_By%></td>
-        <td><%= r.Comments%></td>
-      </tr>
-    <% } %>
+        <% for (const obj of model){ %>
+          <% let reagentData = Object.values(obj) %>
+          <tr>
+          <% reagentData.forEach(function (reagent){ %>
+            <td><%= reagent %></td>
+          <% }) %>
+            <td><a href="/remove/<%= reagentData[0] %>" class="btn btn-default btn-danger">Remove</td></a>
+            <td><a href="/edit/<%= reagentData[0] %>" class="btn btn-default btn-success">Edit</td></a>
+          </tr>
+        <% } %>
     </tbody>
   </table>
 
   <%- include("_footer") -%>
+
+
+
+
+  <!-- <% for (const r in model){ %>
+    <td><%= model[r] %></td>
+  <% } %> -->
