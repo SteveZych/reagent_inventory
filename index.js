@@ -116,8 +116,6 @@ app.get("/reagent/:reagent", (req, res) =>{
     })
   });
 
-  // route for removing quantity get and post
-
 // GET for editing items
 app.get("/edit/:id", (req, res) => {
     const id = req.params.id;
@@ -126,7 +124,7 @@ app.get("/edit/:id", (req, res) => {
       if (err){
           console.log(err);
       }
-      res.render("delete", { model: row });
+      res.render("editor", { model: row });
     });
   });
   
@@ -143,7 +141,8 @@ app.post("/edit/:id", (req, res) => {
       if (err){
           console.log(err);
       }
-      res.redirect(`/reagent/${req.body.Reagent_Name}`);
+    // res.redirect('/');
+    res.redirect(`/reagent/${req.body.Reagent_Name}`);
     });
   });
 
