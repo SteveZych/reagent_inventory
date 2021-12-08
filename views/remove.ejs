@@ -1,9 +1,9 @@
 <%- include("_header") -%>
 
-<form action="/edit/<%= model.Reagent_ID %>" method="post">
+<form action="/remove/<%= model.Reagent_ID %>" method="post">
     <div class="form-horizontal">
-  
-      <%- include("_editor") -%>
+    
+      <%- include("_remover") -%>
   
       <div class="form-group row">
         <label class="col-form-label col-sm-2"></label>
