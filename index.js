@@ -14,7 +14,7 @@ app.listen(3000, () => {
   console.log("Server started (http://localhost:3000/)");
 });
 
-//Connection to the database
+//Connection to the reagent database
 const db_name = path.join(__dirname, "data", "reagents.db");
 const db = new sqlite3.Database(db_name, err => {
   if (err) {
@@ -23,7 +23,7 @@ const db = new sqlite3.Database(db_name, err => {
   console.log("Successful connection to the database 'reagents.db'");
 });
 
-//Creating table
+//Createstable for reagents
 const sql_create_reagents = `CREATE TABLE IF NOT EXISTS Reagent (
     Reagent_ID INTEGER PRIMARY KEY AUTOINCREMENT,
     Department_Name VARCHAR(100) NOT NULL,
@@ -46,10 +46,27 @@ const sql_create_reagents = `CREATE TABLE IF NOT EXISTS Reagent (
     }
   });
 
+  // Creates table for reagents QC
+const sql_create_QC = `CREATE TABLE IF NOT EXISTS Quality_Control (
+    Reagent_ID INT PRIMARY KEY,
+    Reagent_Name VARCHAR(100) NOT NULL,
+    Lot_Number INTEGER(20) NOT NULL,
+    Receive_Date VARCHAR(100) NOT NULL,
+    QC_Date VARCHAR(100) NOT NULL,
+    Performed_By VARCHAR(100) NOT NULL,
+    Comments TEXT
+    );`;
+    
+  db.run(sql_create_QC, err => {
+    if (err) {
+      return console.error(err.message);
+    }
+  });
+
 //GET for home route
 app.get("/", (req, res) =>{
-    let sql = "SELECT DISTINCT Department_Bench FROM Reagent";
-    db.all(sql, [], (err, row) => {
+    let sqlHome = "SELECT DISTINCT Department_Bench FROM Reagent";
+    db.all(sqlHome, [], (err, row) => {
         if (err) {
             console.log(err);
         }
@@ -64,13 +81,13 @@ app.get("/add", (req, res) => {
   
 // POST /add
 app.post("/add", (req, res) => {
-    let sql = `INSERT INTO Reagent (Department_Name, Department_Bench, Instrument, Reagent_Name, Receive_Date, 
+    let sqlAdd = `INSERT INTO Reagent (Department_Name, Department_Bench, Instrument, Reagent_Name, Receive_Date, 
         Lot_Number, Expiration_Date, Quantity_Initial, Quantity_Current, QC_Status, Received_By, Comments) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    let reagent = [req.body.Department_Name, req.body.Department_Bench, req.body.Instrument, 
+    let reagentAdd = [req.body.Department_Name, req.body.Department_Bench, req.body.Instrument, 
         req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, 
         req.body.Quantity, req.body.Quantity, "Not Complete", req.body.Received_By, req.body.Comments];
-    db.run(sql, reagent, err => {
+    db.run(sqlAdd, reagentAdd, err => {
         if (err) {
             console.log(err);
         }else{
@@ -83,8 +100,8 @@ app.post("/add", (req, res) => {
 //GET for bench route
 app.get("/bench/:bench", (req, res) =>{
     let bench = req.params.bench;
-    let sql = "SELECT DISTINCT Instrument FROM Reagent WHERE Department_Bench = ?";
-    db.all(sql, bench, (err, row) => {
+    let sqlBench = "SELECT DISTINCT Instrument FROM Reagent WHERE Department_Bench = ?";
+    db.all(sqlBench, bench, (err, row) => {
         if (err) {
             console.log(err);
         }
@@ -95,8 +112,8 @@ app.get("/bench/:bench", (req, res) =>{
   //GET for instrument route
 app.get("/instrument/:instrument", (req, res) =>{
     let instrument = req.params.instrument;
-    let sql = "SELECT DISTINCT Reagent_Name FROM Reagent WHERE Instrument = ?";
-    db.all(sql, instrument, (err, row) => {
+    let sqlInstrument = "SELECT DISTINCT Reagent_Name FROM Reagent WHERE Instrument = ?";
+    db.all(sqlInstrument, instrument, (err, row) => {
         if (err) {
             console.log(err);
         }
@@ -107,8 +124,8 @@ app.get("/instrument/:instrument", (req, res) =>{
     //GET for reagent route
 app.get("/reagent/:reagent", (req, res) =>{
     let reagent = req.params.reagent;
-    let sql = "SELECT * FROM Reagent WHERE Reagent_Name = ?";
-    db.all(sql, reagent, (err, row) => {
+    let sqlReagent = "SELECT * FROM Reagent WHERE Reagent_Name = ?";
+    db.all(sqlReagent, reagent, (err, row) => {
         if (err) {
             console.log(err);
         }
@@ -118,9 +135,9 @@ app.get("/reagent/:reagent", (req, res) =>{
 
 // GET for editing reagent information
 app.get("/edit/:id", (req, res) => {
-    let id = req.params.id;
-    let sql = "SELECT * FROM Reagent WHERE Reagent_ID = ?";
-    db.get(sql, id, (err, row) => {
+    let editID = req.params.id;
+    let sqlEditID = "SELECT * FROM Reagent WHERE Reagent_ID = ?";
+    db.get(sqlEditID, editID, (err, row) => {
       if (err){
           console.log(err);
       }
@@ -130,47 +147,98 @@ app.get("/edit/:id", (req, res) => {
   
 // POST for editing reagents information
 app.post("/edit/:id", (req, res) => {
-    let sql = `UPDATE Reagent SET Department_Name = ?, Department_Bench = ?, Instrument = ?, Reagent_Name = ?, 
+    let sqlReagentUpdate = `UPDATE Reagent SET Department_Name = ?, Department_Bench = ?, Instrument = ?, Reagent_Name = ?, 
         Receive_Date = ?, Lot_Number = ?, Expiration_Date = ?, Quantity_Initial = ?, Quantity_Current = ?, 
         QC_Status = ?, Received_By = ?, Comments = ? WHERE Reagent_ID = ?`;
     let reagentUpdate = [req.body.Department_Name, req.body.Department_Bench, req.body.Instrument, 
         req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, 
         req.body.Quantity_Initial, req.body.Quantity_Current, req.body.QC_Status, req.body.Received_By, 
         req.body.Comments, req.params.id];
-    db.run(sql, reagentUpdate, err => {
+    db.run(sqlReagentUpdate, reagentUpdate, err => {
       if (err){
           console.log(err);
       }
-    // res.redirect('/');
     res.redirect(`/reagent/${req.body.Reagent_Name}`);
     });
   });
 
-// route for editing items get and post
+
 // GET for removing reagent quantity 
 app.get("/remove/:id", (req, res) => {
-    let id = req.params.id;
-    let sql = "SELECT * FROM Reagent WHERE Reagent_ID = ?";
-    db.get(sql, id, (err, row) => {
+    let removeID = req.params.id;
+    let sqlRemove = "SELECT * FROM Reagent WHERE Reagent_ID = ?";
+    db.get(sqlRemove, removeID, (err, row) => {
       if (err){
           console.log(err);
       }
-      res.render("editor", { model: row });
+      res.render("remove", { model: row });
     });
   });
   
 // POST for removing reagent quantity
 app.post("/remove/:id", (req, res) => {
-    let sqlUpdate = `UPDATE Reagent SET Quantity_Current = ? WHERE Reagent_ID = ?`;
+    let sqlRemoveQuant = `UPDATE Reagent SET Quantity_Current = ? WHERE Reagent_ID = ?`;
     let quantity_id = [req.body.Quantity_Current, req.params.id];
-    db.run(sqlUpdate, quantity_id, err => {
+    db.run(sqlRemoveQuant, quantity_id, err => {
       if (err){
           console.log(err);
       }
-    // res.redirect('/');
     res.redirect(`/reagent/${req.body.Reagent_Name}`);
     });
   });
+
+// GET route for pending QC
+app.get("/pendingQC", (req, res) => {
+    let sqlQC = `SELECT Reagent_ID, Reagent_Name, Lot_Number, Receive_Date, QC_Status FROM Reagent 
+                WHERE QC_Status = "Not Complete"`;
+    let sqlQC_variables = [];
+    db.all(sqlQC, sqlQC_variables, (err, row)=> {
+        if (err) {
+            console.log(err);
+        }
+        res.render('pendingQC', {model: row });
+    })
+});
+
+// GET for QC form autopopulates with reagent info
+app.get("/qcForm/:id", (req, res) => {
+    let sqlQCForm = `SELECT Reagent_ID, Reagent_Name, Lot_Number, Receive_Date FROM Reagent WHERE Reagent_ID = ?`;
+    let qcForm = [req.params.id];
+    db.get(sqlQCForm, qcForm, (err, row) =>{
+        if (err){
+            console.log(err);
+        }
+        res.render("qcForm", { model: row });
+    });
+  });
+
+// POST for qcForm adds QC info into Quality Control table and Updates Reagent table
+app.post("/qcForm/:id", (req, res) => {
+    let sqlQC = `INSERT INTO Quality_Control (Reagent_ID, Reagent_Name, Lot_Number, Receive_Date, 
+        QC_Date, Performed_By, Comments) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    let qcAdd = [req.body.Reagent_ID, req.body.Reagent_Name, req.body.Lot_Number, req.body.Receive_Date, 
+        req.body.QC_Date, req.body.Performed_By, req.body.Comments];
+    db.run(sqlQC, qcAdd, err => {
+        if (err) {
+            console.log(err);
+        }else{
+            console.log("Successfully added reagent QC to 'Quality Control' table.");
+        };
+    });
+
+    let sqlUpdateQC = `UPDATE Reagent SET QC_Status = ? WHERE Reagent_ID = ?`;
+    let completeQC = ["Complete", req.params.id];
+    db.run(sqlUpdateQC, completeQC , err => {
+        if (err) {
+            console.log(err);
+        }else{
+            console.log("Successfully added reagent QC to 'Quality Control' table.");
+        };
+    });
+
+    res.redirect(`/reagent/${req.body.Reagent_Name}`);
+  });
+
   //Table needed for reagents, QC, and log of transactions
 
 // Shorten table in reagent view by adding bread crumb
