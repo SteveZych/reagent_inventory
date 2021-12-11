@@ -1,69 +1,83 @@
 <div class="form-group row">
-    <label class="col-form-label col-sm-2" for="Department_Name">Department Name</label>
-    <div class="col-sm-8">
-      <input class="form-control" id="Department_Name" name="Department_Name" value="<%= model.Department_Name %>" />
-    </div>
+  <label class="col-form-label col-sm-2" for="Department_Name">Department Name</label>
+  <div class="col-sm-8">
+    <input class="form-control" id="Department_Name" name="Department_Name" value="<%= model.Department_Name %>" />
   </div>
-
-  <div class="form-group row">
-    <label class="col-form-label col-sm-2" for="Department_Bench">Department Bench</label>
-    <div class="col-sm-8">
-      <input class="form-control" id="Department_Area" name="Department_Bench" value="<%= model.Department_Bench %>" />
-    </div>
-  </div>
-
-  <div class="form-group row">
-    <label class="col-form-label col-sm-2" for="Instrument">Instrument</label>
-    <div class="col-sm-8">
-      <input class="form-control" id="Department_Area" name="Instrument" value="<%= model.Instrument %>" />
-    </div>
-  </div>
+</div>
 
 <div class="form-group row">
-    <label class="col-form-label col-sm-2" for="Reagent_Name">Reagent Name</label>
-    <div class="col-sm-8">
-      <input class="form-control" id="Reagent_Name" name="Reagent_Name" value="<%= model.Reagent_Name %>" />
-    </div>
+  <label class="col-form-label col-sm-2" for="Department_Bench">Department Bench</label>
+  <div class="col-sm-8">
+    <input class="form-control" id="Department_Bench" name="Department_Bench" value="<%= model.Department_Bench %>" />
   </div>
-  
-  <div class="form-group row">
-    <label class="col-form-label col-sm-2" for="Receive_Date">Receive Date</label>
-    <div class="col-sm-7">
-      <input class="form-control" type="date" id="Receive_Date" name="Receive_Date" value="<%= model.Receive_Date %>" />
-    </div>
-  </div>
+</div>
 
-  <div class="form-group row">
-    <label class="col-form-label col-sm-2" for="Lot_Number">Lot Number</label>
-    <div class="col-sm-7">
-      <input class="form-control" id="Lot_Number" name="Lot_Number" value="<%= model.Lot_Number %>" />
-    </div>
+<div class="form-group row">
+  <label class="col-form-label col-sm-2" for="Instrument">Instrument</label>
+  <div class="col-sm-8">
+    <input class="form-control" id="Instrument" name="Instrument" value="<%= model.Instrument %>" />
   </div>
+</div>
 
-  <div class="form-group row">
-    <label class="col-form-label col-sm-2" for="Expiration_Date">Expiration Date</label>
-    <div class="col-sm-7">
-      <input class="form-control" type="date" id="Expiration_Date" name="Expiration_Date" value="<%= model.Expiration_Date %>" />
-    </div>
+<div class="form-group row">
+  <label class="col-form-label col-sm-2" for="Reagent_Name">Reagent Name</label>
+  <div class="col-sm-8">
+    <input class="form-control" id="Reagent_Name" name="Reagent_Name" value="<%= model.Reagent_Name %>" />
   </div>
+</div>
 
-  <div class="form-group row">
-    <label class="col-form-label col-sm-2" for="Quantity">Quantity</label>
-    <div class="col-sm-7">
-      <input class="form-control" id="Quantity" name="Quantity" value="<%= model.Quantity %>" />
-    </div>
+<div class="form-group row">
+  <label class="col-form-label col-sm-2" for="Receive_Date">Receive Date</label>
+  <div class="col-sm-7">
+    <input class="form-control" type="date" id="Receive_Date" name="Receive_Date" value="<%= model.Receive_Date %>" />
   </div>
+</div>
 
-  <div class="form-group row">
-    <label class="col-form-label col-sm-2" for="Received_By">Received By</label>
-    <div class="col-sm-7">
-      <input class="form-control" id="Quantity" name="Received_By" value="<%= model.Received_By %>" />
-    </div>
+<div class="form-group row">
+  <label class="col-form-label col-sm-2" for="Lot_Number">Lot Number</label>
+  <div class="col-sm-7">
+    <input class="form-control" id="Lot_Number" name="Lot_Number" value="<%= model.Lot_Number %>" />
   </div>
-  
-  <div class="form-group row">
-    <label class="col-form-label col-sm-2" for="Comments">Comments</label>
-    <div class="col-sm-10">
-      <textarea class="form-control" cols="20" id="Comments" name="Comments" maxlength="32000" rows="7"><%= model.Comments %></textarea>
-    </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-sm-2" for="Expiration_Date">Expiration Date</label>
+  <div class="col-sm-7">
+    <input class="form-control" type="date" id="Expiration_Date" name="Expiration_Date" value="<%= model.Expiration_Date %>" />
   </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-sm-2" for="Quantity_Initial">Quantity Initial</label>
+  <div class="col-sm-7">
+    <input class="form-control" id="Quantity_Initial" name="Quantity_Initial" value="<%= model.Quantity_Initial %>" />
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-sm-2" for="Quantity_Current">Quantity Current</label>
+  <div class="col-sm-7">
+    <input class="form-control" id="Quantity_Current" name="Quantity_Current" value="<%= model.Quantity_Current %>" />
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-sm-2" for="QC_Status">QC Status</label>
+  <div class="col-sm-7">
+    <input class="form-control" id="QC_Status" name="QC_Status" value="<%= model.QC_Status %>" />
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-sm-2" for="Received_By">Received By</label>
+  <div class="col-sm-7">
+    <input class="form-control" id="Received_By" name="Received_By" value="<%= model.Received_By %>" />
+  </div>
+</div>
+
+<div class="form-group row">
+  <label class="col-form-label col-sm-2" for="Comments">Comments</label>
+  <div class="col-sm-10">
+    <textarea class="form-control" cols="20" id="Comments" name="Comments" maxlength="32000" rows="7"><%= model.Comments %></textarea>
+  </div>
+</div>

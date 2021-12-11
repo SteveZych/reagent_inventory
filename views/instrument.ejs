@@ -2,12 +2,15 @@
 
 <%- include("_header") -%>
 
-    <% for (const reagent in model){  %>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <a href="/reagent/<%= reagent %>" class=""><h5 class="card-title"><%= reagent %></h5></a>
-                <!--Progress bar-->
+    <% for (const obj of model){  %>
+        <% for (const reagent in obj){ %>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <a href="/reagent/<%= obj[reagent] %>" class=""><h5 class="card-title"><%= obj[reagent] %></h5></a>
+                    <!--Progress bar-->
+                </div>
             </div>
-        </div>
+        <% } %>
     <% } %>
+
 <%- include("_footer") -%>
