@@ -1,3 +1,49 @@
-body{
-    margin:0; padding:0; box-sizing:border-box;
+/* ------------------------- */
+/* Navbar */
+/* ------------------------- */
+#nav {
+	height: 60px;
+	background: var(--dark-accent-color);
+	margin-bottom: 25px;
+}
+
+#navContainer {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.nav-header {
+	color: var(--light-accent-color);
+	font-size: 28px;
+	transition: all 0.25s;
+}
+
+.nav-header:hover {
+	color: var(--main-accent);
+	letter-spacing: 10px;
+	transform: scale(1.05);
+}
+
+#addBtn {
+	font-size: 24px;
+	color: var(--light-accent-color);
+	transition: transform 0.25s 0s;
+}
+
+#addBtn:hover {
+	transform: scale(1.2);
+}
+
+@media only screen and (max-width: 786px) {
+	#nav {
+		height: 100px;
+	}
+
+	#navContainer {
+		flex-direction: column;
+		justify-content: center;
+	}
 }
