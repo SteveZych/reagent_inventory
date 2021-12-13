@@ -1,16 +1,19 @@
 <!--This view is the /instrument route and will display all reagent associated with that instrument-->
 
 <%- include("_header") -%>
-
-    <% for (const obj of model){  %>
-        <% for (const reagent in obj){ %>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <a href="/reagent/<%= obj[reagent] %>" class=""><h5 class="card-title"><%= obj[reagent] %></h5></a>
-                    <!--Progress bar-->
-                </div>
-            </div>
+<div class="container">
+    <div class="cardContainer">
+        <% for (const obj of model){  %>
+            <% for (const reagent in obj){ %>
+                <a href="/reagent/<%= obj[reagent] %>"><div class="card">
+                    <div class="cardBody">
+                        <h5 class="cardTitle"><%= obj[reagent] %></h5>
+                        <!--Progress bar-->
+                    </div>
+                </div></a>
+            <% } %>
         <% } %>
-    <% } %>
+    </div>
+</div>
 
 <%- include("_footer") -%>
