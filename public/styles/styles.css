@@ -63,7 +63,7 @@ a:hover {
 #nav {
 	height: 60px;
 	background: var(--light-accent-color);
-	margin-bottom: 25px;
+	margin-bottom: 10px;
 }
 
 #navContainer {
@@ -221,32 +221,33 @@ a.edit {
 
 .formContainer{
 	width: 80%;
-	margin: 0 auto;
+	margin: auto;
 }
 
 .formArea {
-	height: 525px;
-	width: 300px;
+	height: 550px;
 	background-color: var(--light-accent-color);
-	width: 50%;
+	width: 600px;
 	margin: auto;
 	border-radius: 10px;
+	padding: 10px;
 }
 
 .formInput {
 	display: flex;
 	flex-direction: column;
-	width: 200px;
+	width: 95%;
 	margin: auto;
+	padding: 10px;
 	justify-content: center;
   	align-items: center;
 	
 }
 
-input[type=text], input[type=number], input[type=date] {
-	width: 100%;
-	padding: 12px 20px;
-	margin: 8px 0;
+input[type=text], input[type=number], input[type=date], textarea {
+	width: 80%;
+	padding: 10px 10px;
+	margin: 3px 5px;
 	display: inline-block;
 	border: 1px solid #ccc;
 	border-radius: 4px;
@@ -256,4 +257,12 @@ input[type=text], input[type=number], input[type=date] {
 .formGroup {
 	display: flex;
 	flex-direction: row;
+	margin: auto;
+	width: 95%;
+}
+
+.label {
+	height: 40px;
+	display: inline-block;
+	width: 175px;
 }
