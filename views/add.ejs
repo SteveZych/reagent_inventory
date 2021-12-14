@@ -1,18 +1,22 @@
 <%- include("_header") -%>
-
-<form action="/add" method="post">
-    <div class="form-horizontal">
-  
-      <%- include("_add") -%>
-  
-      <div class="form-group row">
-        <label class="col-form-label col-sm-2"></label>
-        <div class="col-sm-10">
-          <input type="submit" value="Submit" class="btn btn-default btn-success" />
-          <a class="btn btn-outline-dark cancel" href="/">Cancel</a>
+<div class="formContainer">
+  <div class="formArea">
+    <form action="/add" method="post">
+      <div class="formInput">
+    
+        <%- include("_add") -%>
+    
+        <div class="">
+          <label class=""></label>
+          <div class="">
+            <input type="submit" value="Submit" class="btn btn-default btn-success" />
+            <a class="btn btn-outline-dark cancel" href="/">Cancel</a>
+          </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
+</div>
+  
 
 <%- include("_footer") -%>

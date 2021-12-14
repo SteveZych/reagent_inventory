@@ -214,3 +214,46 @@ a.edit {
 	background-color: var(--dark-accent-color);
 	color: white;
   }
+
+ /* ------------------------- */
+/* Form */
+/* ------------------------- */
+
+.formContainer{
+	width: 80%;
+	margin: 0 auto;
+}
+
+.formArea {
+	height: 525px;
+	width: 300px;
+	background-color: var(--light-accent-color);
+	width: 50%;
+	margin: auto;
+	border-radius: 10px;
+}
+
+.formInput {
+	display: flex;
+	flex-direction: column;
+	width: 200px;
+	margin: auto;
+	justify-content: center;
+  	align-items: center;
+	
+}
+
+input[type=text], input[type=number], input[type=date] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+.formGroup {
+	display: flex;
+	flex-direction: row;
+}
