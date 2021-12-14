@@ -62,15 +62,19 @@ const sql_create_QC = `CREATE TABLE IF NOT EXISTS Quality_Control (
       return console.error(err.message);
     }
   });
-
 //GET for home route
-app.get("/", (req, res) =>{
+app.get("/", (req, res)=> {
+  res.render("index");
+});
+
+//GET for departments route
+app.get("/departments", (req, res) =>{
     let sqlHome = "SELECT DISTINCT Department_Bench FROM Reagent";
     db.all(sqlHome, [], (err, row) => {
         if (err) {
             console.log(err);
         }
-        res.render('index', {model: row});
+        res.render("departments", {model: row});
     })
   });
 

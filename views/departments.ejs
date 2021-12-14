@@ -1,0 +1,17 @@
+<%- include("_header") -%>
+    <div class="container">
+        <div class="cardContainer">
+            <% for (const obj of model){  %>
+                <% for (const bench in obj){  %>
+                    <a href="/bench/<%= obj[bench]%>"><div class="card">
+                        <div class="cardBody">
+                            <h3 class="cardTitle"><%= obj[bench] %></h3>
+                        </div>
+                        <!--Progress bar-->
+                    </div></a>
+                <% } %>
+            <% } %>
+        </div>
+    </div>
+    
+<%- include("_footer") -%>

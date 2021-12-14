@@ -1,38 +1,39 @@
 <!--This view is the /reagent route and will display a log of individual reagents with all information and
 ability to remove quantities-->
 <%- include("_header") -%>
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Dept. Name</th>
-        <th scope="col">Bench</th>
-        <th scope="col">Instrument</th>
-        <th scope="col">Reagent</th>
-        <th scope="col">Receive Date</th>
-        <th scope="col">Lot</th>
-        <th scope="col">Expiration Date</th>
-        <th scope="col">Initial Quantity</th>
-        <th scope="col">Current Quantity</th>
-        <th scope="col">QC Status</th>
-        <th scope="col">Received By</th>
-        <th scope="col">Comment</th>
-        <th scope="col">Remove</th>
-        <th scope="col">Edit</th>
-      </tr>
-    </thead>
-    <tbody>
-        <% for (const obj of model){ %>
-          <% let reagentData = Object.values(obj) %>
-          <tr>
-          <% reagentData.forEach(function (reagent){ %>
-            <td><%= reagent %></td>
-          <% }) %>
-            <td><a href="/remove/<%= reagentData[0] %>" class="btn btn-default btn-danger">Remove</td></a>
-            <td><a href="/edit/<%= reagentData[0] %>" class="btn btn-default btn-success">Edit</td></a>
-          </tr>
-        <% } %>
-    </tbody>
-  </table>
-
+<div style="overflow-x:auto;">
+  <table id="reagentTable">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Dept. Name</th>
+          <th scope="col">Bench</th>
+          <th scope="col">Instrument</th>
+          <th scope="col">Reagent</th>
+          <th scope="col">Receive Date</th>
+          <th scope="col">Lot</th>
+          <th scope="col">Expiration Date</th>
+          <th scope="col">Initial Quantity</th>
+          <th scope="col">Current Quantity</th>
+          <th scope="col">QC Status</th>
+          <th scope="col">Received By</th>
+          <th scope="col">Comment</th>
+          <th scope="col">Remove</th>
+          <th scope="col">Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+          <% for (const obj of model){ %>
+            <% let reagentData = Object.values(obj) %>
+            <tr>
+            <% reagentData.forEach(function (reagent){ %>
+              <td><%= reagent %></td>
+            <% }) %>
+              <td><button type="button" class="remove"><a href="/remove/<%= reagentData[0] %>" class="remove">Remove</td></a></button>
+              <td><button type="button" class="edit"><a href="/edit/<%= reagentData[0] %>" class="edit">Edit</td></a></button>
+            </tr>
+          <% } %>
+      </tbody>
+    </table>
+</div>
   <%- include("_footer") -%>

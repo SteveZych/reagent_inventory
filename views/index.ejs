@@ -7,14 +7,5 @@ in the main body there should be a explaination of what this app can do
 maybe some screen shots of how to navigate
 
 a sql query for the drop down to navigate to different departments -->
-    <% for (const obj of model){  %>
-        <% for (const bench in obj){  %>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <a href="/bench/<%= obj[bench]%>" class=""><h5 class="card-title"><%= obj[bench] %></h5></a>
-                    <!--Progress bar-->
-                </div>
-            </div>
-        <% } %>
-    <% } %>
+    <h1>Landing page to explain what this app does</h1>
 <%- include("_footer") -%>

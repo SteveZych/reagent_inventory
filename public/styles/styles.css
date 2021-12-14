@@ -1,3 +1,259 @@
-body{
-    margin:0; padding:0; box-sizing:border-box;
+/* ------------------------- */
+/* Variables */
+/* ------------------------- */
+
+:root {
+	--main-accent:#fc575e;
+	--light-accent-color: #f0f1f5;
+	--dark-accent-color: #333;
+	--main-grey: #555;
+	--green-edit: #6ee70adc;
+}
+
+/* ------------------------- */
+/* Resets */
+/* ------------------------- */
+*{
+	margin: 0;
+	padding: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	box-sizing: border-box;
+}
+
+/* ------------------------- */
+/* Global */
+/* ------------------------- */
+a {
+	text-decoration: none
+}
+
+a:hover {
+	cursor: pointer;
+}
+
+.container {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.hidden {
+	display: none;
+}
+
+.header {
+	font-size: 24px;
+	margin-bottom: 10px;
+	color: var(--main-grey);
+}
+
+.full-screen-opaque {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.85);
+	z-index: 5;
+}
+
+
+/* ------------------------- */
+/* Navbar */
+/* ------------------------- */
+#nav {
+	height: 60px;
+	background: var(--light-accent-color);
+	margin-bottom: 25px;
+}
+
+#navContainer {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.nav-header {
+	color: var(--dark-accent-color);
+	font-size: 28px;
+	transition: all 0.25s;
+}
+
+.navOptions {
+	display: flex;
+	flex-direction: row;
+}
+
+.navOption{
+	padding: 10px;
+}
+
+.option {
+	color: var(--dark-accent-color);
+}
+
+@media only screen and (max-width: 786px) {
+	#nav {
+		height: 100px;
+	}
+
+	#navContainer {
+		flex-direction: column;
+		justify-content: center;
+	}
+}
+
+/* ------------------------- */
+/* Footer */
+/* ------------------------- */
+
+.footer{
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+}
+
+/* ------------------------- */
+/* Cards */
+/* ------------------------- */
+
+.cardContainer {
+	padding: 10px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.card {
+	width: 150px;
+	margin: 20px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: var(--dark-accent-color);
+	border-radius: 5px;
+}
+
+.cardBody{
+	padding: 20px;
+	text-align: center;
+}
+
+.cardTitle {
+	color: var(--main-grey);
+}
+
+/* ------------------------- */
+/* Buttons */
+/* ------------------------- */
+
+input[type='button'], button.edit {
+	padding: 8px 22px;
+	border-radius: 5px;
+	border: 1px solid var(--green-edit);
+	background-color: var(--green-edit);
+	color: var(--light-accent-color);
+	font-size: 16px;
+	transition: all 0.25s;
+}
+input[type='button'], button.remove {
+	padding: 8px 22px;
+	border-radius: 5px;
+	border: 1px solid var(--main-accent);
+	background-color: var(--main-accent);
+	color: var(--light-accent-color);
+	font-size: 16px;
+	transition: all 0.25s;
+}
+
+input[type='button']:hover, button:hover {
+	cursor: pointer;
+	color: var(--main-accent);
+	background: white;
+}
+
+.btn-sm {
+	font-size: 10px;
+	padding: 5px 10px;
+}
+
+a.remove {
+	text-decoration: none;
+	color: var(--light-accent-color);
+}
+
+a.edit {
+	text-decoration: none;
+	color: var(--light-accent-color);
+}
+
+
+/* ------------------------- */
+/* Tables */
+/* ------------------------- */
+
+#reagentTable {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+  }
+  
+  #reagentTable td, #reagentTable th {
+	border: 1px solid #ddd;
+	padding: 8px;
+  }
+  
+  #reagentTable tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #reagentTable tr:hover {background-color: #ddd;}
+  
+  #reagentTable th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: var(--dark-accent-color);
+	color: white;
+  }
+
+ /* ------------------------- */
+/* Form */
+/* ------------------------- */
+
+.formContainer{
+	width: 80%;
+	margin: 0 auto;
+}
+
+.formArea {
+	height: 525px;
+	width: 300px;
+	background-color: var(--light-accent-color);
+	width: 50%;
+	margin: auto;
+	border-radius: 10px;
+}
+
+.formInput {
+	display: flex;
+	flex-direction: column;
+	width: 200px;
+	margin: auto;
+	justify-content: center;
+  	align-items: center;
+	
+}
+
+input[type=text], input[type=number], input[type=date] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+.formGroup {
+	display: flex;
+	flex-direction: row;
 }
