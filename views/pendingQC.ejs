@@ -1,28 +1,30 @@
 <!--This view is the /pendingQC route and will display a log of individual reagents with pending QC. There will
 be a button to update the qc and will be redirected to that reagents form to update qc-->
 <%- include("_header") -%>
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Reagent</th>
-        <th scope="col">Lot</th>
-        <th scope="col">Receive Date</th>
-        <th scope="col">QC Status</th>
-        <th scope="col">Update QC</th>
-      </tr>
-    </thead>
-    <tbody>
-        <% for (const obj of model){ %>
-          <% let reagentData = Object.values(obj) %>
-          <tr>
-          <% reagentData.forEach(function (reagent){ %>
-            <td><%= reagent %></td>
-          <% }) %>
-            <td><a href="/qcForm/<%= reagentData[0] %>" class="btn btn-default btn-danger">Update</td></a>
-          </tr>
-        <% } %>
-    </tbody>
-  </table>
+<div style="overflow-x:auto;">
+  <table id="reagentTable">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Reagent</th>
+          <th scope="col">Lot</th>
+          <th scope="col">Receive Date</th>
+          <th scope="col">QC Status</th>
+          <th scope="col">Update QC</th>
+        </tr>
+      </thead>
+      <tbody>
+          <% for (const obj of model){ %>
+            <% let reagentData = Object.values(obj) %>
+            <tr>
+            <% reagentData.forEach(function (reagent){ %>
+              <td><%= reagent %></td>
+            <% }) %>
+              <td><button type="button" class="remove"><a href="/qcForm/<%= reagentData[0] %>">Edit</td></a></button>
+            </tr>
+          <% } %>
+      </tbody>
+    </table>
+</div>
 
   <%- include("_footer") -%>

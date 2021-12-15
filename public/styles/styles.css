@@ -24,7 +24,8 @@
 /* Global */
 /* ------------------------- */
 a {
-	text-decoration: none
+	text-decoration: none;
+	color:var(--light-accent-color);
 }
 
 a:hover {
@@ -108,10 +109,16 @@ a:hover {
 /* Footer */
 /* ------------------------- */
 
-.footer{
+footer {
 	position: absolute;
 	bottom: 0;
-	text-align: center;
+	width: 100%;
+	margin-top: 20px;
+  }
+
+.footer{
+	display: flex;
+	justify-content: center;
 }
 
 /* ------------------------- */
@@ -225,7 +232,7 @@ a.edit {
 }
 
 .formArea {
-	height: 550px;
+	height: 565px;
 	background-color: var(--light-accent-color);
 	width: 600px;
 	margin: auto;
@@ -265,4 +272,22 @@ input[type=text], input[type=number], input[type=date], textarea {
 	height: 40px;
 	display: inline-block;
 	width: 175px;
+}
+
+.formAreaShort {
+	height: 450px;
+	background-color: var(--light-accent-color);
+	width: 600px;
+	margin: auto;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.formAreaLong {
+	height: 700px;
+	background-color: var(--light-accent-color);
+	width: 600px;
+	margin: auto;
+	border-radius: 10px;
+	padding: 10px;
 }
