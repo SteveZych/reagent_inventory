@@ -18,7 +18,7 @@ ability to remove quantities-->
           <th scope="col">QC Status</th>
           <th scope="col">Received By</th>
           <th scope="col">Comment</th>
-          <th scope="col">Remove</th>
+          <th scope="col">Remove Quantity</th>
           <th scope="col">Edit</th>
         </tr>
       </thead>
@@ -29,7 +29,7 @@ ability to remove quantities-->
             <% reagentData.forEach(function (reagent){ %>
               <td><%= reagent %></td>
             <% }) %>
-              <td><button type="button" class="remove"><a href="/remove/<%= reagentData[0] %>" class="remove">Remove</td></a></button>
+              <td><button type="button" class="remove"><a href="/remove/<%= reagentData[0] %>" class="remove">Remove Quantity</td></a></button>
               <td><button type="button" class="edit"><a href="/edit/<%= reagentData[0] %>" class="edit">Edit</td></a></button>
             </tr>
           <% } %>
