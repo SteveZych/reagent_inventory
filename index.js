@@ -62,6 +62,7 @@ const sql_create_QC = `CREATE TABLE IF NOT EXISTS Quality_Control (
       return console.error(err.message);
     }
   });
+
 //GET for home route
 app.get("/", (req, res)=> {
   res.render("index");
@@ -75,7 +76,7 @@ app.get("/departments", (req, res) =>{
             console.log(err);
         }
         res.render("departments", {model: row});
-    })
+    });
   });
 
 // GET /add

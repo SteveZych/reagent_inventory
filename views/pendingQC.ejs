@@ -20,7 +20,7 @@ be a button to update the qc and will be redirected to that reagents form to upd
             <% reagentData.forEach(function (reagent){ %>
               <td><%= reagent %></td>
             <% }) %>
-              <td><button type="button" class="remove"><a href="/qcForm/<%= reagentData[0] %>">Edit</td></a></button>
+              <td><a href="/qcForm/<%= reagentData[0] %>"><button type="button" class="remove">Edit</td></a></button>
             </tr>
           <% } %>
       </tbody>

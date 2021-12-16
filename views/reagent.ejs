@@ -29,8 +29,8 @@ ability to remove quantities-->
             <% reagentData.forEach(function (reagent){ %>
               <td><%= reagent %></td>
             <% }) %>
-              <td><button type="button" class="remove"><a href="/remove/<%= reagentData[0] %>" class="remove">Remove Quantity</td></a></button>
-              <td><button type="button" class="edit"><a href="/edit/<%= reagentData[0] %>" class="edit">Edit</td></a></button>
+              <td><a href="/remove/<%= reagentData[0] %>"><button type="button" class="remove">Remove Quantity</td></a></button>
+              <td><a href="/edit/<%= reagentData[0] %>"><button type="button" class="edit">Edit</td></a></button>
             </tr>
           <% } %>
       </tbody>
