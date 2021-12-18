@@ -1,5 +1,4 @@
-<!--This view is the /pendingQC route and will display a log of individual reagents with pending QC. There will
-be a button to update the qc and will be redirected to that reagents form to update qc-->
+<!--This view is the /completeQC route and will display a table of reagents with completed QC-->
 <%- include("_header") -%>
 <div style="overflow-x:auto;">
   <table id="reagentTable">
@@ -9,8 +8,10 @@ be a button to update the qc and will be redirected to that reagents form to upd
           <th scope="col">Reagent</th>
           <th scope="col">Lot</th>
           <th scope="col">Receive Date</th>
-          <th scope="col">QC Status</th>
-          <th scope="col">Update QC</th>
+          <th scope="col">QC Date</th>
+          <th scope="col">Performed By</th>
+          <th scope="col">Comment</th>
+          <th scope="col">Link to Reagent</th>
         </tr>
       </thead>
       <tbody>
@@ -20,11 +21,10 @@ be a button to update the qc and will be redirected to that reagents form to upd
             <% reagentData.forEach(function (reagent){ %>
               <td><%= reagent %></td>
             <% }) %>
-              <td><a href="/qcForm/<%= reagentData[0] %>"><button type="button" class="remove">Edit</td></a></button>
+              <td><a href="/reagent/<%= reagentData[1] %>"><button type="button" class="edit"><%= reagentData[1] %></td></a></button>
             </tr>
           <% } %>
       </tbody>
     </table>
 </div>
-
   <%- include("_footer") -%>

@@ -154,7 +154,7 @@ footer {
 /* Buttons */
 /* ------------------------- */
 
-input[type='button'], button.edit {
+input[type='submit'], button.edit {
 	padding: 8px 22px;
 	border-radius: 5px;
 	border: 1px solid var(--green-edit);
@@ -162,36 +162,38 @@ input[type='button'], button.edit {
 	color: var(--light-accent-color);
 	font-size: 16px;
 	transition: all 0.25s;
+	margin: 2px;
 }
-input[type='button'], button.remove {
+
+input[type='submit']:hover, button.edit:hover{
+	cursor: pointer;
+	color: var(--green-edit);
+	background: white;
+}
+
+button.remove, a.cancel{
 	padding: 8px 22px;
 	border-radius: 5px;
 	border: 1px solid var(--main-accent);
 	background-color: var(--main-accent);
 	color: var(--light-accent-color);
 	font-size: 16px;
+	font-family: Arial, Helvetica, sans-serif;
 	transition: all 0.25s;
+	text-decoration: none;
+	margin: 2px;
 }
 
-input[type='button']:hover, button:hover {
+button.remove:hover, a.cancel:hover {
 	cursor: pointer;
+	font-family: Arial, Helvetica, sans-serif;
 	color: var(--main-accent);
 	background: white;
 }
 
-.btn-sm {
-	font-size: 10px;
-	padding: 5px 10px;
-}
-
-a.remove {
-	text-decoration: none;
-	color: var(--light-accent-color);
-}
-
-a.edit {
-	text-decoration: none;
-	color: var(--light-accent-color);
+.buttonRow{
+	display: flex;
+	flex-direction: row;
 }
 
 
