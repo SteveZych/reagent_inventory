@@ -274,8 +274,24 @@ app.post("/qcForm/:id", (req, res) => {
     res.redirect(`/reagent/${req.body.Reagent_Name}`);
   });
 
+//GET route for Completed QC
+app.get("/completedQC", (req, res) => {
+  let sqlCompleteQC = `SELECT * FROM Quality_Control`;
+  db.all(sqlCompleteQC, [], (err, row) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(`Displaying completed Quality Control.`);
+    }
+    res.render("completedQC", {model: row});
+  })
+});
+
+
+
+
+
   //Table needed for reagents, QC, and log of transactions
 
 // Shorten table in reagent view by adding bread crumb
 
-// add table for performed QC
