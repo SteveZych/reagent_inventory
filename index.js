@@ -63,6 +63,15 @@ const sql_create_QC = `CREATE TABLE IF NOT EXISTS Quality_Control (
     }
   });
 
+// delete_sql_create_QC = `DROP TABLE Quality_Control;`
+// db.run(delete_sql_create_QC,err => {
+//   if (err) {
+//     console.error(err.message);
+//   } else {
+//     console.log(`Dropped quality control table.`);
+//   }
+// });
+
 //GET for home route
 app.get("/", (req, res)=> {
   res.render("index");
@@ -74,6 +83,8 @@ app.get("/departments", (req, res) =>{
     db.all(sqlHome, [], (err, row) => {
         if (err) {
             console.log(err);
+        } else {
+          console.log(`Displaying department benches.`)
         }
         res.render("departments", {model: row});
     });
@@ -81,6 +92,7 @@ app.get("/departments", (req, res) =>{
 
 // GET /add
 app.get("/add", (req, res) => {
+    console.log(`Rendering add page.`)
     res.render("add", { model: {} });
   });
   
@@ -109,6 +121,8 @@ app.get("/bench/:bench", (req, res) =>{
     db.all(sqlBench, bench, (err, row) => {
         if (err) {
             console.log(err);
+        } else {
+          console.log(`Displaying ${req.params.bench} instruments.`)
         }
         res.render('bench', {model: row});
     })
@@ -121,6 +135,8 @@ app.get("/instrument/:instrument", (req, res) =>{
     db.all(sqlInstrument, instrument, (err, row) => {
         if (err) {
             console.log(err);
+        } else {
+          console.log(`Displaying ${req.params.instrument} reagents.`)
         }
         res.render('instrument', {model: row});
     })
@@ -133,6 +149,8 @@ app.get("/reagent/:reagent", (req, res) =>{
     db.all(sqlReagent, reagent, (err, row) => {
         if (err) {
             console.log(err);
+        } else {
+          console.log(`Displaying ${req.params.reagent} table.`)
         }
         res.render('reagent', {model: row});
     })
@@ -145,6 +163,8 @@ app.get("/edit/:id", (req, res) => {
     db.get(sqlEditID, editID, (err, row) => {
       if (err){
           console.log(err);
+      } else {
+        console.log(`Displaying ID# ${req.params.id} for editing information.`)
       }
       res.render("editor", { model: row });
     });
@@ -162,6 +182,8 @@ app.post("/edit/:id", (req, res) => {
     db.run(sqlReagentUpdate, reagentUpdate, err => {
       if (err){
           console.log(err);
+      }else{
+        console.log(`Successfully edited ${req.body.Reagent_ID}, ${req.body.Reagent_Name}`);
       }
     res.redirect(`/reagent/${req.body.Reagent_Name}`);
     });
@@ -175,6 +197,8 @@ app.get("/remove/:id", (req, res) => {
     db.get(sqlRemove, removeID, (err, row) => {
       if (err){
           console.log(err);
+      } else {
+        console.log(`Displaying ID# ${req.params.id} for updating quantity.`)
       }
       res.render("remove", { model: row });
     });
@@ -187,8 +211,10 @@ app.post("/remove/:id", (req, res) => {
     db.run(sqlRemoveQuant, quantity_id, err => {
       if (err){
           console.log(err);
+      }else{
+        console.log(`Successfully updated quantity of ${req.body.Reagent_Name}`);
       }
-    res.redirect(`/reagent/${req.body.Reagent_Name}`);
+      res.redirect(`/reagent/${req.body.Reagent_Name}`);
     });
   });
 
@@ -200,6 +226,8 @@ app.get("/pendingQC", (req, res) => {
     db.all(sqlQC, sqlQC_variables, (err, row)=> {
         if (err) {
             console.log(err);
+        }else {
+          console.log(`Displaying pending QC`);
         }
         res.render('pendingQC', {model: row });
     })
@@ -212,6 +240,8 @@ app.get("/qcForm/:id", (req, res) => {
     db.get(sqlQCForm, qcForm, (err, row) =>{
         if (err){
             console.log(err);
+        }else{
+          console.log(`Displaying ${req.body.Reagent_ID}, ${req.body.Reagent_Name} for updating QC`);
         }
         res.render("qcForm", { model: row });
     });
@@ -227,7 +257,7 @@ app.post("/qcForm/:id", (req, res) => {
         if (err) {
             console.log(err);
         }else{
-            console.log("Successfully added reagent QC to 'Quality Control' table.");
+            console.log(`Successfully added ${req.body.Reagent_ID}, ${req.body.Reagent_Name} QC to 'Quality Control' table.`);
         };
     });
 
@@ -237,7 +267,7 @@ app.post("/qcForm/:id", (req, res) => {
         if (err) {
             console.log(err);
         }else{
-            console.log("Successfully added reagent QC to 'Quality Control' table.");
+            console.log(`Successfully updated ${req.body.Reagent_ID}, ${req.body.Reagent_Name} QC`);
         };
     });
 
@@ -247,3 +277,5 @@ app.post("/qcForm/:id", (req, res) => {
   //Table needed for reagents, QC, and log of transactions
 
 // Shorten table in reagent view by adding bread crumb
+
+// add table for performed QC
