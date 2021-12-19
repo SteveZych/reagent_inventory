@@ -291,7 +291,7 @@ app.get("/completedQC", (req, res) => {
 
 
 
-  //Table needed for reagents, QC, and log of transactions
+  //Table for log of transactions
 
 // Shorten table in reagent view by adding bread crumb
 
