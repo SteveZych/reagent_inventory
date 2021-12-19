@@ -80,6 +80,25 @@ a:hover {
 /* Home Page */
 /* ------------------------- */
 
+.homeContent {
+	display: flex;
+	flex-direction: row;
+}
+
+@media screen and (max-width: 770px){
+	.homeContent {
+		display: flex;
+		flex-direction: column;
+	}
+	.mainimg{
+		height: 250px;
+		width: 250px;
+	}
+	.mainImgDiv{
+		text-align: center;
+	}
+}
+
 .mainText {
 	padding: 50px;
 }
