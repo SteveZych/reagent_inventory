@@ -252,6 +252,10 @@ button.remove:hover, a.cancel:hover {
 /* Tables */
 /* ------------------------- */
 
+.table {
+	padding: 10px;
+}
+
 #reagentTable {
 	font-family: Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
