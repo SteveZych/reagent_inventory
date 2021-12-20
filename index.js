@@ -165,6 +165,34 @@ app.post("/edit/:id", (req, res) => {
   });
 });
 
+// GET for removing reagent quantity 
+app.get("/remove/:id", (req, res) => {
+  let removeID = req.params.id;
+  let sqlRemove = "SELECT * FROM Reagent WHERE Reagent_ID = ?";
+  db.get(sqlRemove, removeID, (err, row) => {
+    if (err){
+        console.log(err);
+    } else {
+      console.log(`Displaying ID# ${req.params.id} for updating quantity.`)
+    }
+    res.render("remove", { model: row });
+  });
+});
+
+// POST for removing reagent quantity
+app.post("/remove/:id", (req, res) => {
+  let sqlRemoveQuant = `UPDATE Reagent SET Quantity_Current = ? WHERE Reagent_ID = ?`;
+  let quantity_id = [req.body.Quantity_Current, req.params.id];
+  db.run(sqlRemoveQuant, quantity_id, err => {
+    if (err){
+        console.log(err);
+    }else{
+      console.log(`Successfully updated quantity of ${req.body.Reagent_Name}`);
+    }
+    res.redirect(`/reagent/${req.body.Reagent_Name}`);
+  });
+});
+
 
 //////////////////////
 //Information Routes//
@@ -231,36 +259,6 @@ app.get("/reagent/:reagent", (req, res) =>{
     })
   });
 
-
-
-
-// GET for removing reagent quantity 
-app.get("/remove/:id", (req, res) => {
-    let removeID = req.params.id;
-    let sqlRemove = "SELECT * FROM Reagent WHERE Reagent_ID = ?";
-    db.get(sqlRemove, removeID, (err, row) => {
-      if (err){
-          console.log(err);
-      } else {
-        console.log(`Displaying ID# ${req.params.id} for updating quantity.`)
-      }
-      res.render("remove", { model: row });
-    });
-  });
-  
-// POST for removing reagent quantity
-app.post("/remove/:id", (req, res) => {
-    let sqlRemoveQuant = `UPDATE Reagent SET Quantity_Current = ? WHERE Reagent_ID = ?`;
-    let quantity_id = [req.body.Quantity_Current, req.params.id];
-    db.run(sqlRemoveQuant, quantity_id, err => {
-      if (err){
-          console.log(err);
-      }else{
-        console.log(`Successfully updated quantity of ${req.body.Reagent_Name}`);
-      }
-      res.redirect(`/reagent/${req.body.Reagent_Name}`);
-    });
-  });
 
 // GET route for pending QC
 app.get("/pendingQC", (req, res) => {
