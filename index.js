@@ -63,14 +63,113 @@ const sql_create_QC = `CREATE TABLE IF NOT EXISTS Quality_Control (
     }
   });
 
-// delete_sql_create_QC = `DROP TABLE Quality_Control;`
-// db.run(delete_sql_create_QC,err => {
-//   if (err) {
-//     console.error(err.message);
-//   } else {
-//     console.log(`Dropped quality control table.`);
-//   }
-// });
+////////////////////
+////// Forms ///////
+////////////////////
+
+// GET /add
+app.get("/add", (req, res) => {
+  console.log(`Rendering add page.`)
+  res.render("add", { model: {} });
+});
+
+// POST /add
+app.post("/add", (req, res) => {
+  let sqlAdd = `INSERT INTO Reagent (Department_Name, Department_Bench, Instrument, Reagent_Name, Receive_Date, 
+      Lot_Number, Expiration_Date, Quantity_Initial, Quantity_Current, QC_Status, Received_By, Comments) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  let reagentAdd = [req.body.Department_Name, req.body.Department_Bench, req.body.Instrument, 
+      req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, 
+      req.body.Quantity, req.body.Quantity, "Not Complete", req.body.Received_By, req.body.Comments];
+  db.run(sqlAdd, reagentAdd, err => {
+      if (err) {
+          console.log(err);
+      }else{
+          console.log("Successfully added reagent to 'Reagent' table.");
+      };
+      res.redirect("/add");
+  });
+});
+
+// GET for QC form autopopulates with reagent info
+app.get("/qcForm/:id", (req, res) => {
+  let sqlQCForm = `SELECT Reagent_ID, Reagent_Name, Lot_Number, Receive_Date FROM Reagent WHERE Reagent_ID = ?`;
+  let qcForm = [req.params.id];
+  db.get(sqlQCForm, qcForm, (err, row) =>{
+      if (err){
+          console.log(err);
+      }else{
+        console.log(`Displaying ${req.body.Reagent_ID}, ${req.body.Reagent_Name} for updating QC`);
+      }
+      res.render("qcForm", { model: row });
+  });
+});
+
+// POST for qcForm adds QC info into Quality Control table and Updates Reagent table
+app.post("/qcForm/:id", (req, res) => {
+  let sqlQC = `INSERT INTO Quality_Control (Reagent_ID, Reagent_Name, Lot_Number, Receive_Date, 
+      QC_Date, Performed_By, Comments) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+  let qcAdd = [req.body.Reagent_ID, req.body.Reagent_Name, req.body.Lot_Number, req.body.Receive_Date, 
+      req.body.QC_Date, req.body.Performed_By, req.body.Comments];
+  db.run(sqlQC, qcAdd, err => {
+      if (err) {
+          console.log(err);
+      }else{
+          console.log(`Successfully added ${req.body.Reagent_ID}, ${req.body.Reagent_Name} QC to 'Quality Control' table.`);
+      };
+  });
+
+  let sqlUpdateQC = `UPDATE Reagent SET QC_Status = ? WHERE Reagent_ID = ?`;
+  let completeQC = ["Complete", req.params.id];
+  db.run(sqlUpdateQC, completeQC , err => {
+      if (err) {
+          console.log(err);
+      }else{
+          console.log(`Successfully updated ${req.body.Reagent_ID}, ${req.body.Reagent_Name} QC`);
+      };
+  });
+
+  res.redirect(`/reagent/${req.body.Reagent_Name}`);
+});
+
+// GET for editing reagent information
+app.get("/edit/:id", (req, res) => {
+  let editID = req.params.id;
+  let sqlEditID = "SELECT * FROM Reagent WHERE Reagent_ID = ?";
+  db.get(sqlEditID, editID, (err, row) => {
+    if (err){
+        console.log(err);
+    } else {
+      console.log(`Displaying ID# ${req.params.id} for editing information.`)
+    }
+    res.render("editor", { model: row });
+  });
+});
+
+// POST for editing reagents information
+app.post("/edit/:id", (req, res) => {
+  let sqlReagentUpdate = `UPDATE Reagent SET Department_Name = ?, Department_Bench = ?, Instrument = ?, Reagent_Name = ?, 
+      Receive_Date = ?, Lot_Number = ?, Expiration_Date = ?, Quantity_Initial = ?, Quantity_Current = ?, 
+      QC_Status = ?, Received_By = ?, Comments = ? WHERE Reagent_ID = ?`;
+  let reagentUpdate = [req.body.Department_Name, req.body.Department_Bench, req.body.Instrument, 
+      req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, 
+      req.body.Quantity_Initial, req.body.Quantity_Current, req.body.QC_Status, req.body.Received_By, 
+      req.body.Comments, req.params.id];
+  db.run(sqlReagentUpdate, reagentUpdate, err => {
+    if (err){
+        console.log(err);
+    }else{
+      console.log(`Successfully edited ${req.body.Reagent_ID}, ${req.body.Reagent_Name}`);
+    }
+  res.redirect(`/reagent/${req.body.Reagent_Name}`);
+  });
+});
+
+
+//////////////////////
+//Information Routes//
+//////////////////////
+
 
 //GET for home route
 app.get("/", (req, res)=> {
@@ -87,30 +186,6 @@ app.get("/departments", (req, res) =>{
           console.log(`Displaying department benches.`)
         }
         res.render("departments", {model: row});
-    });
-  });
-
-// GET /add
-app.get("/add", (req, res) => {
-    console.log(`Rendering add page.`)
-    res.render("add", { model: {} });
-  });
-  
-// POST /add
-app.post("/add", (req, res) => {
-    let sqlAdd = `INSERT INTO Reagent (Department_Name, Department_Bench, Instrument, Reagent_Name, Receive_Date, 
-        Lot_Number, Expiration_Date, Quantity_Initial, Quantity_Current, QC_Status, Received_By, Comments) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    let reagentAdd = [req.body.Department_Name, req.body.Department_Bench, req.body.Instrument, 
-        req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, 
-        req.body.Quantity, req.body.Quantity, "Not Complete", req.body.Received_By, req.body.Comments];
-    db.run(sqlAdd, reagentAdd, err => {
-        if (err) {
-            console.log(err);
-        }else{
-            console.log("Successfully added reagent to 'Reagent' table.");
-        };
-        res.redirect("/add");
     });
   });
 
@@ -156,38 +231,7 @@ app.get("/reagent/:reagent", (req, res) =>{
     })
   });
 
-// GET for editing reagent information
-app.get("/edit/:id", (req, res) => {
-    let editID = req.params.id;
-    let sqlEditID = "SELECT * FROM Reagent WHERE Reagent_ID = ?";
-    db.get(sqlEditID, editID, (err, row) => {
-      if (err){
-          console.log(err);
-      } else {
-        console.log(`Displaying ID# ${req.params.id} for editing information.`)
-      }
-      res.render("editor", { model: row });
-    });
-  });
-  
-// POST for editing reagents information
-app.post("/edit/:id", (req, res) => {
-    let sqlReagentUpdate = `UPDATE Reagent SET Department_Name = ?, Department_Bench = ?, Instrument = ?, Reagent_Name = ?, 
-        Receive_Date = ?, Lot_Number = ?, Expiration_Date = ?, Quantity_Initial = ?, Quantity_Current = ?, 
-        QC_Status = ?, Received_By = ?, Comments = ? WHERE Reagent_ID = ?`;
-    let reagentUpdate = [req.body.Department_Name, req.body.Department_Bench, req.body.Instrument, 
-        req.body.Reagent_Name, req.body.Receive_Date, req.body.Lot_Number, req.body.Expiration_Date, 
-        req.body.Quantity_Initial, req.body.Quantity_Current, req.body.QC_Status, req.body.Received_By, 
-        req.body.Comments, req.params.id];
-    db.run(sqlReagentUpdate, reagentUpdate, err => {
-      if (err){
-          console.log(err);
-      }else{
-        console.log(`Successfully edited ${req.body.Reagent_ID}, ${req.body.Reagent_Name}`);
-      }
-    res.redirect(`/reagent/${req.body.Reagent_Name}`);
-    });
-  });
+
 
 
 // GET for removing reagent quantity 
@@ -232,47 +276,6 @@ app.get("/pendingQC", (req, res) => {
         res.render('pendingQC', {model: row });
     })
 });
-
-// GET for QC form autopopulates with reagent info
-app.get("/qcForm/:id", (req, res) => {
-    let sqlQCForm = `SELECT Reagent_ID, Reagent_Name, Lot_Number, Receive_Date FROM Reagent WHERE Reagent_ID = ?`;
-    let qcForm = [req.params.id];
-    db.get(sqlQCForm, qcForm, (err, row) =>{
-        if (err){
-            console.log(err);
-        }else{
-          console.log(`Displaying ${req.body.Reagent_ID}, ${req.body.Reagent_Name} for updating QC`);
-        }
-        res.render("qcForm", { model: row });
-    });
-  });
-
-// POST for qcForm adds QC info into Quality Control table and Updates Reagent table
-app.post("/qcForm/:id", (req, res) => {
-    let sqlQC = `INSERT INTO Quality_Control (Reagent_ID, Reagent_Name, Lot_Number, Receive_Date, 
-        QC_Date, Performed_By, Comments) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-    let qcAdd = [req.body.Reagent_ID, req.body.Reagent_Name, req.body.Lot_Number, req.body.Receive_Date, 
-        req.body.QC_Date, req.body.Performed_By, req.body.Comments];
-    db.run(sqlQC, qcAdd, err => {
-        if (err) {
-            console.log(err);
-        }else{
-            console.log(`Successfully added ${req.body.Reagent_ID}, ${req.body.Reagent_Name} QC to 'Quality Control' table.`);
-        };
-    });
-
-    let sqlUpdateQC = `UPDATE Reagent SET QC_Status = ? WHERE Reagent_ID = ?`;
-    let completeQC = ["Complete", req.params.id];
-    db.run(sqlUpdateQC, completeQC , err => {
-        if (err) {
-            console.log(err);
-        }else{
-            console.log(`Successfully updated ${req.body.Reagent_ID}, ${req.body.Reagent_Name} QC`);
-        };
-    });
-
-    res.redirect(`/reagent/${req.body.Reagent_Name}`);
-  });
 
 //GET route for Completed QC
 app.get("/completedQC", (req, res) => {
