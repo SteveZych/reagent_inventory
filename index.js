@@ -10,9 +10,12 @@ app.use(express.static(path.join(__dirname, "public")));
 //Middleware for the Requests.body to retrieve posted values
 app.use(express.urlencoded({ extended: false })); // <--- middleware configuration 
 
-app.listen(3000, () => {
-  console.log("Server started (http://localhost:3000/)");
-});
+// start the server listening for requests
+app.listen(process.env.PORT || 3000, 
+	() => console.log("Server is running..."));
+// app.listen(3000, () => {
+//   console.log("Server started (http://localhost:3000/)");
+// });
 
 //Connection to the reagent database
 const db_name = path.join(__dirname, "data", "reagents.db");
