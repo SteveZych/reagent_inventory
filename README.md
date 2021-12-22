@@ -56,7 +56,7 @@ Laboratories are allowed to digitally keep track of their reagents with all info
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/SteveZych/Final-Project/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/SteveZych/reagent_inventory/issues) for a list of proposed features (and known issues).
 
 
 <!-- CONTRIBUTING -->
@@ -69,12 +69,6 @@ Contributions are what make the open source community such an amazing place to b
 3. Commit your Changes (`git commit -m 'Add some amazing_feature'`)
 4. Push to the Branch (`git push origin feature/amazing_feature`)
 5. Open a Pull Request
-
-<!--SITE-->
-## Site
-![Landing Page](images/landing.png)
-![Updating](images/update.png)
-![Predictive Model](images/predictive_model.png)
 
 <!-- CONTACT -->
 ## Contact
