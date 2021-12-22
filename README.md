@@ -9,7 +9,7 @@
     ·
     <a href="https://github.com/SteveZych/reagent_inventory/issues">Request Feature</a>
   </p>
-</p>
+  <p align="center"><a href="https://reagent-inventory.herokuapp.com/">Link to live website</a></p>
 
 
 <!-- TABLE OF CONTENTS -->
@@ -29,12 +29,14 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+This project was created to transition my microbiology laboratory from manual/paper tracking of inventory to a digital record keeping system.
+
 Laboratories are allowed to digitally keep track of their reagents with all information needed for regulatory agencies.
 
 * User-Driven reagent logging using HTML forms and SQLite.
 * Ability to update reagent volume.
 * Persistent data showing when reagents were received and quality control status.
-* Quality Control tracking allowing users to update quality control and maintain records how it was achieved.
+* Quality Control tracking, allowing users to update quality control and maintain records how it was achieved.
 
 
 ###### Concept & Notes
