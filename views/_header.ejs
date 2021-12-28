@@ -9,23 +9,73 @@
 </head>
 
 <body>
+  <div class="topnav" id="myTopnav">
+    <a href="/"><h1 class="nav-header">Inventory Manager</h1></a>
+    <a href="/add"><h4 class="option">Add Reagent</h4></a>
+    <a href="/pendingQC"><h4 class="option">Pending QC</h4></a>
+    <a href="/completedQC"><h4 class="option">Completed QC</h4></a>
+    <a href="/departments"><h4 class="option">Microbiology</h4></a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
 
-  <nav id="nav">
+  <script>
+    function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+}
+  </script>
+  <!-- <nav id="nav">
 		<div class="container" id="navContainer">
       <a href="/"><h1 class="nav-header">Inventory Manager</h1></a>
       <div class="navOptions">
-        <div class="navOption">
+        <div class="navOption exposed">
           <a href="/add"><h4 class="option">Add Reagent</h4></a>
         </div>
-        <div class="navOption">
+        <div class="navOption exposed">
           <a href="/pendingQC"><h4 class="option">Pending QC</h4></a>
         </div>
-        <div class="navOption">
+        <div class="navOption exposed">
           <a href="/completedQC"><h4 class="option">Completed QC</h4></a>
         </div>
-        <div class="navOption">
+        <div class="navOption exposed">
           <a href="/departments"><h4 class="option">Microbiology</h4></a>
+        </div>
+        <div class="navOption menu">
+          <button onclick="hiddenMenu()"><i class="fas fa-bars fa-2x"></i></button>
         </div>
       </div>
 		</div>
+    
+    <div class="hiddenMenu">
+      <div class="hiddenOptions">
+        <div class="hiddenOption">
+          <a href="/add"><h4 class="option">Add Reagent</h4></a>
+        </div>
+        <div class="hiddenOption">
+          <a href="/pendingQC"><h4 class="option">Pending QC</h4></a>
+        </div>
+        <div class="hiddenOption">
+          <a href="/completedQC"><h4 class="option">Completed QC</h4></a>
+        </div>
+        <div class="hiddenOption">
+          <a href="/departments"><h4 class="option">Microbiology</h4></a>
+        </div>
+      </div>
+    </div>
 	</nav>
+  <script>
+    function hiddenMenu(){
+      let x = document.querySelector(".hiddenMenu");
+      if (x.style.display === "none"){
+        x.style.display = "block";
+      }else {
+        x.style.display = "none";
+        }
+      }
+  </script> -->
