@@ -5,6 +5,7 @@ const sqlite3 = require("sqlite3").verbose();
 //Run engine
 app.set("view engine", "ejs");
 const path = require("path");
+const { Z_ASCII } = require("zlib");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 //Middleware for the Requests.body to retrieve posted values
@@ -290,7 +291,6 @@ app.get("/completedQC", (req, res) => {
     res.render("completedQC", {model: row});
   })
 });
-
 
 
 
